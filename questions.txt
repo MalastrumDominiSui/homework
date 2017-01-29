@@ -1,12 +1,5 @@
-Does this work yet?
-Does this work yet?1. What is the meaning of life?
-2. How do you split a string in Java?
-3. What does rbenv rehash actually do?
-At the end?6. 
-At the end again?
-7. At the end and again again?
-8. Did this Actually work?
-9. What is your name?
-10. hello?
-11. hello?
-12. hello
+this is the first question
+this is the second question
+this is the third question
+this is the fourth question
+this is the fifth question

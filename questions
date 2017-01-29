@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+require 'pry'
+
+## note, i did this using hashes, it is probably entirely redundant since the features of an array
+## already accomodate providing access to "key" numbers, I did this mostly to practice using hashes in code
+
+
+questionFile = File.open('/Users/michaelsefranek/code/homework/questions.txt', 'r+')  ## opens file (gives it a memory address)
+currentQuestions = questionFile.readlines  # takes the lines of a file and puts them into an array
+questionFile.close
+	 
+questionValues = {questionStrs: currentQuestions, questionNum: (1..currentQuestions.length+1).to_a}  ## collects questions in file, and numbers for each line in the file starting with 1, for numbering
+
+myQuestion = ARGV  ## this will ideally be ["add", "question"] or []
+
+if myQuestion[0] == "add"
+	myQuestionLineFix = myQuestion[1] + "\n" # tacks a newline onto the questions from console
+	questionValues[:questionStrs] += [myQuestionLineFix]  ## adds new question to key element, an array, in a hash key
+	newQuestionFile = File.new('/Users/michaelsefranek/code/homework/questions.txt', 'w') 
+	questionValues[:questionStrs].each {|str| newQuestionFile.write str}
+	for i in 0..questionValues[:questionStrs].length - 1
+		puts "#{questionValues[:questionNum][i]}\.#{questionValues[:questionStrs][i]}"
+	end
+	newQuestionFile.close
+
+elsif myQuestion[0] == "rm"
+	questionValues[:questionStrs].slice!(myQuestion[1].to_i - 1)
+	questionValues[:questionNum] = (1..questionValues[:questionStrs].length).to_a  ## makes this into proper number array
+	newQuestionFile = File.new('/Users/michaelsefranek/code/homework/questions.txt', 'w') 
+	questionValues[:questionStrs].each {|str| newQuestionFile.write str}
+	for i in 0..questionValues[:questionStrs].length - 1
+		puts "#{questionValues[:questionNum][i]}\.#{questionValues[:questionStrs][i]}"
+	end
+	newQuestionFile.close
+
+else
+
+
+	questionFile = File.open('/Users/michaelsefranek/code/homework/questions.txt', 'r+')  ## opens file (gives it a memory address)
+	questionValues[:questionStrs] = questionFile.readlines
+	questionValues[:questionStrs].each {|str| puts str}
+	questionFile.close
+end
