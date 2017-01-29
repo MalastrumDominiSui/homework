@@ -4,40 +4,44 @@ require 'pry'
 ## note, i did this using hashes, it is probably entirely redundant since the features of an array
 ## already accomodate providing access to "key" numbers, I did this mostly to practice using hashes in code
 
+$qFilePath = '/Users/michaelsefranek/code/homework/questions.txt'
 
-questionFile = File.open('/Users/michaelsefranek/code/homework/questions.txt', 'r+')  ## opens file (gives it a memory address)
+questionFile = File.open($qFilePath, 'r+')  ## opens file (gives it a memory address)
 currentQuestions = questionFile.readlines  # takes the lines of a file and puts them into an array
 questionFile.close
 	 
 questionValues = {questionStrs: currentQuestions, questionNum: (1..currentQuestions.length+1).to_a}  ## collects questions in file, and numbers for each line in the file starting with 1, for numbering
 
+def putsQuestions(numArr, strArr)
+		for i in 0..strArr.length - 1
+		puts "#{numArr[i]}\. #{strArr[i]}"
+	end
+end
+
 myQuestion = ARGV  ## this will ideally be ["add", "question"] or []
 
+
 if myQuestion[0] == "add"
+	myQuestion[1] = myQuestion[1].sub(/\'/,"")
 	myQuestionLineFix = myQuestion[1] + "\n" # tacks a newline onto the questions from console
 	questionValues[:questionStrs] += [myQuestionLineFix]  ## adds new question to key element, an array, in a hash key
-	newQuestionFile = File.new('/Users/michaelsefranek/code/homework/questions.txt', 'w') 
+	newQuestionFile = File.new($qFilePath, 'w') 
 	questionValues[:questionStrs].each {|str| newQuestionFile.write str}
-	for i in 0..questionValues[:questionStrs].length - 1
-		puts "#{questionValues[:questionNum][i]}\.#{questionValues[:questionStrs][i]}"
-	end
+	putsQuestions(questionValues[:questionNum],questionValues[:questionStrs])
 	newQuestionFile.close
 
 elsif myQuestion[0] == "rm"
 	questionValues[:questionStrs].slice!(myQuestion[1].to_i - 1)
 	questionValues[:questionNum] = (1..questionValues[:questionStrs].length).to_a  ## makes this into proper number array
-	newQuestionFile = File.new('/Users/michaelsefranek/code/homework/questions.txt', 'w') 
+	newQuestionFile = File.new($qFilePath, 'w') 
 	questionValues[:questionStrs].each {|str| newQuestionFile.write str}
-	for i in 0..questionValues[:questionStrs].length - 1
-		puts "#{questionValues[:questionNum][i]}\.#{questionValues[:questionStrs][i]}"
-	end
+	putsQuestions(questionValues[:questionNum],questionValues[:questionStrs])
 	newQuestionFile.close
 
 else
-
-
-	questionFile = File.open('/Users/michaelsefranek/code/homework/questions.txt', 'r+')  ## opens file (gives it a memory address)
+	questionFile = File.open($qFilePath, 'r+')  ## opens file (gives it a memory address)
 	questionValues[:questionStrs] = questionFile.readlines
-	questionValues[:questionStrs].each {|str| puts str}
+	puts "Current Questions:"
+	putsQuestions(questionValues[:questionNum],questionValues[:questionStrs])
 	questionFile.close
 end

@@ -1,5 +1,1 @@
-this is the first question
-this is the second question
-this is the third question
-this is the fourth question
-this is the fifth question
+Is using global variables a good way to insert a filepath string as a method argument?
