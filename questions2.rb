@@ -1,16 +1,16 @@
 ## more optimized rewrite using arrays
 
-$qFilePath = '/Users/michaelsefranek/code/homework/questions.txt'  ## opens file (gives it a memory address)
+$qFilePath = '/Users/michaelsefranek/code/homework/questions.txt'
 fileQstsArr = qsFile.readlines  # takes the lines of a file and puts them into an array
 qsFile.close
 
-def putsQs(qstArr)   ## prints all the numbers and questions
+def putsQs(qstArr)   ## prints all the numbers and questions in console
 	for i in 1..qstArr.length
 		puts "#{i}\. #{qstArr[i-1]}"
 	end
 end
 
-def writeQsToFile(qstArr) ## writes our question array to file when
+def writeQsToFile(qstArr) ## writes our question array to file
 	newQstnsFile = File.new($qFilePath, 'w') 
 	qstArr.each {|qstnStr| newQstnsFile.write qstnStr}
 	newQstnsFile.close
