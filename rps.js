@@ -1,21 +1,22 @@
 var prompt = require('prompt');
 
-prompt.start();
 
-Class Rps_game {
+
+class Rps_game {
 	constructor(playOneWep, playTwoWep) {
 		this.playOneWep = playOneWep; //not sure if this is everything
 		this.playTwoWep = playTwoWep;
 	}
 
-	getFirstWep(){
-		prompt.get(string) //needs work
-		playOneWep = RockPaperScissor.new //syntax?
-	}
-
-	getSecondWep(){
-		prompt.get(string) //needs work
-		playOneWep = RockPaperScissor.new //syntax?
+	set_up_initial_weapons(){
+		prompt.start();
+		prompt.get(['playerOneWeapon', 'playerTwoWeapon'], function (err, result)  {
+  //   	console.log('Weapons Chosen:');
+  //   	console.log('  Player1 weapon: ' + result.playerOneWeapon);
+  //   	console.log('  Player2 weapon: ' + result.playerTwoWeapon);
+		playOneWep = result.playerOneWeapon
+		playTwoWep; = result.playerTwoWeapon
+		});
 	}
 
 	determineWinner(){
@@ -24,8 +25,8 @@ Class Rps_game {
 
 }
 
-Class RockPaperScissor{
-	constructor(???)
+class RockPaperScissor {
+	constructor(rpsTripleVal)
 
 	key value pairs:
  	rock = [1,1,0]
