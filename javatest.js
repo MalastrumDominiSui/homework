@@ -14,29 +14,43 @@ prompt.get(['playerOneName','playerTwoName','playerOneWeapon', 'playerTwoWeapon'
 	var pOneName = result.playerOneName;
 	var pTwoName = result.playerTwoName;
 
-	var player1 = [result.playerOneWeapon,0, pOneName];
-	var player2 = [result.playerTwoWeapon, 0, pTwoName];
-    
-    for (var i=0; i<3; i++){       //checks to see if player One chose a weapon from weaponCollection and sets that value for them
-    	if (result.playerOneWeapon == weaponCollection[i][3]){
-    		player1[0] = weaponCollection[i];
-    	}
+	var player1 = [0,0, pOneName];
+	var player2 = [0, 0, pTwoName];
+
+	
+	var snarkyResponses = ["RUH ROH!... ", "AW HeEEEilllzzz no! ", "WUT? You cray? Zee? ", "Awwwwwww SNAP! ", "Croiky! " ];
+
+	function generateRandomSnakr(snarkArr){  // generates random response from array above
+	min = Math.ceil(0);
+  	max = Math.floor(snarkArr.length);
+  	rndSnarkStr = Math.floor(Math.random() * (max - min)) + min
+  	return snarkArr[rndSnarkStr];
+	}
+
+	function isInWeaponCollection(playerWep, aWeaponStr){
+		return(playerWep == aWeaponStr);
+	}
+
+	function setWeapon(aPlayerArr, aWeaponStr) {
+		for (var i=0; i<3; i++){       //checks to see if player One chose a weapon from weaponCollection and sets that value for them
+     		if (isInWeaponCollection(aWeaponStr, weaponCollection[i][3])){
+     			aPlayerArr[0] = weaponCollection[i];
+     		}
+     	}
+	}
+   
+    setWeapon(player1, result.playerOneWeapon);
+    setWeapon(player2, result.playerTwoWeapon);
+
+    function sillyCommentChoices(player){
+    	 console.log(generateRandomSnakr(snarkyResponses) +player[2]+ " picked up the " + player[0][3] )
     }
 
-    for (var i=0; i<3; i++){  // checks for player two what weapon from collection, sets it in their collection
-    	if (result.playerTwoWeapon == weaponCollection[i][3]){
-    		player2[0] = weaponCollection[i];
-    	}
+    sillyCommentChoices(player1);
+    sillyCommentChoices(player2);
 
-    }
-
-    console.log(" Aww snap! " +pOneName+ " picked up the " + player1[0][3] )
-    console.log(" Oh HECK NAW.. "+ pTwoName+ " picked up the " + player2[0][3] )
-
-    if (pOneName == pTwoName){
-    	console.log("WHY ARE YOU FIGHTING YOURSELF??")
-    }
-
+   
+    //console.log(" Oh HECK NAW.. "+ pTwoName+ " picked up the " + player2[0][3] )
 
 function playAgain(){   // allows us to play again if we want to based on yes or no answer from user
 	prompt.start();
@@ -76,11 +90,11 @@ roShamBo = function(xPlayer, yPlayer){
  	for(var i=0; i<3; i++) {
  		if (compareWep[i] == 0) {
 			if (xPlayer[i] == weaponCollection[i[3]]) {
-				displayWinner(xPlayer, weaponCollection[i][3]);
+				displayWinner(yPlayer, weaponCollection[i][3]);
 				return(xPlayer[0])
 			}
 			else {
-				displayWinner(yPlayer, weaponCollection[i][3]);
+				displayWinner(xPlayer, weaponCollection[i][3]);
 				return(yPlayer[0])
 			}
 		}
@@ -89,6 +103,24 @@ roShamBo = function(xPlayer, yPlayer){
 }
 
 roShamBo(player1,player2);
+
+	//Test Setup
+	function didTestWork(testFunStr,num,bool){
+		console.log("Test for " +testFunStr+ " number " + num+ " was " + bool)
+	}	
+
+	//setWeaponTEST
+	var currentTestStr = "setWeapon"
+	var player3 = [rock, 0,"Edward"];
+	var player4 = [paper, 0,"Finstinkle"];
+	var player5 = [scissors, 0,"Snickerdoodle"]; //catch all the weapon cases
+	setWeapon(player3);
+	didTestWork(currentTestStr, 1, player3[0] == rock);
+	setWeapon(player4);
+	didTestWork(currentTestStr, 2, player4[0] == paper);
+	setWeapon(player5);
+	didTestWork(currentTestStr, 3, player5[0] == scissors);
+	// end setWeaponTEST
 
 
 }); // weapon get prompt
