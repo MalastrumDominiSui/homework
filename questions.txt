@@ -1,3 +1,2 @@
 Is using global variables a good way to insert a filepath string as a method argument? 
 why do some of my files appear in red in my console?
-What is the meaning of life?
