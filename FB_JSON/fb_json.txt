@@ -1,0 +1,25 @@
+[
+	{"person": {
+		"info": {
+			"name": "BananaMan",
+			"image": "images/address.png"
+		}
+		"post": {
+			"time": "timestamp",
+			"postText": "text",
+			"postLikes": "int",
+			"postCommentNum": "int"
+		}
+		"comments": {
+			"user": {
+				"name": "OrangeGirl",
+				"image": "images/address.png"
+				}
+			"commentText": "blah",
+			"commentLikes": "int",
+			"commentCommentNum": "int"
+			}
+
+		}
+	}
+]
